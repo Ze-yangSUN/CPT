@@ -11,7 +11,7 @@ def log_likelihood(theta, cl_EEo, cl_BBo, cl_EBo, EEcmb_bl2, BBcmb_bl2):
     alpha, beta = theta
     model = 0.5*np.tan(4*alpha)*(EEo-BBo) + 0.5*np.sin(4*beta)/np.cos(4*alpha)*(EEcmb_bl2-BBcmb_bl2)
     var = (1./(2.*ell+1)*EEo*BBo+ 0.5*(np.tan(4*alpha))**2/(2.*ell+1)*(EEo**2+BBo**2) - np.tan(4*alpha)*2./(2.*ell+1)*EBo*(EEo-BBo)) + 1./(2.*ell+1)*(1-(np.tan(4*alpha))**2)*EBo**2
-    return -(np.sum((EBo[lmin:L]-model[lmin:L])**2/var[lmin:L]) + np.sum(np.log(var[lmin:L])))
+    return -np.sum( (EBo[lmin:L]-model[lmin:L])**2/var[lmin:L] + 2.*np.pi*np.log(var[lmin:L]) )
 
 def log_prior(theta):
     alpha, beta = theta
